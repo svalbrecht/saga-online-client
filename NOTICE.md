@@ -8,7 +8,17 @@ code, pictures and sounds may not be extracted, sold or published apart from it.
 The game's pictures and sounds are used under the licences of the artists who made them.
 Those licences let the game use and change them, and do not let anybody sell or publish
 them as assets of their own. The game carries them in an encrypted file, as the artists
-ask.
+ask. With thanks to:
+
+- **Gif** (Super Retro Game Assets): the players and villagers, from the
+  [Super Retro World Characters Pack](https://farm-animal.itch.io/character-pack) and the
+  [Farming Pack](https://farm-animal.itch.io/farm), changed for the game.
+- **Anokolisa**: the trees, from
+  [Pixel Crawler - Free Pack](https://anokolisa.itch.io/free-pixel-art-asset-pack-topdown-tileset-rpg-16x16-sprites).
+- **Kenmi**: the cottage and the footbridges, from
+  [Cute Fantasy RPG](https://kenmi-art.itch.io/cute-fantasy-rpg).
+- **Mark James**: the country flags, from the
+  [famfamfam flag icons](http://www.famfamfam.com/lab/icons/flags/).
 
 The game includes **JOrbis** and **JOgg** (Copyright (C) 2000 ymnk, JCraft, Inc.), which
 decode its Ogg Vorbis sounds. They are free software under the GNU Library General

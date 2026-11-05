@@ -14,7 +14,11 @@ This repository holds the game to download and how to play it. It holds no sourc
 3. Double-click it, or run `java -jar saga-client.jar`.
 
 The game keeps itself up to date: each time it starts, it fetches a newer version from
-its root server if there is one. You need an account on that root server, and a network
+its root server if there is one and asks whether to use it. Tick "Don't ask again, always
+update" to be asked no more. To keep the version you have without being asked, put a file
+`saga-client.properties` beside the jar holding the line `noupdate=1` (from a terminal,
+`java -Dsaga.noupdate -jar saga-client.jar` does the same); it then joins only servers of
+that version. You need an account on that root server, and a network
 that reaches it and its game servers, as [docs/playing.md](docs/playing.md) explains.
 
 | | |
@@ -22,6 +26,14 @@ that reaches it and its game servers, as [docs/playing.md](docs/playing.md) expl
 | [docs/playing.md](docs/playing.md) | installing and playing, accounts, connection problems, reporting a problem |
 | [docs/ADMIN_COMMANDS.md](docs/ADMIN_COMMANDS.md) | the commands of a game server's administrators |
 | [NOTICE.md](NOTICE.md) | the licences of what the game is made of |
+
+## Reporting problems
+
+Problems with the game, and suggestions, go in this repository's
+[Issues](https://github.com/svalbrecht/saga-online-client/issues). For a crash, a freeze or
+a game out of sync, also send a report from the game (Escape, then **Report a problem**):
+it carries the logs and a recording an issue cannot, as [docs/playing.md](docs/playing.md#reporting-a-problem)
+explains. Problems with the RL package go in [pysaga's Issues](https://github.com/ntu-agents/pysaga/issues).
 
 ## Train agents to play it
 

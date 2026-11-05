@@ -197,3 +197,9 @@ A report carries:
 - the log of a game server you host from your machine;
 - your computer's system, Java and display;
 - your account name, and the game server, round and map.
+
+A report reaches the people running the game, but there is no way to answer it. To
+describe a problem, follow it up or suggest something, open an issue in
+[the downloads repository's Issues](https://github.com/svalbrecht/saga-online-client/issues). If you
+sent a report from the game, say roughly when, so the two can be matched. Problems with the
+RL package (pysaga) belong in [its own Issues](https://github.com/ntu-agents/pysaga/issues).
