@@ -1,10 +1,7 @@
 <p align="center"><img src="docs/logo.png" alt="Saga Online" width="278"></p>
 
-A 2D top-down multiplayer action-RPG. Warriors and magicians fight with weapons and
-abilities across hand-drawn and generated maps, in Deathmatch, Team Deathmatch,
-Domination and Monster Attack. Join a game server, or start your own from the game.
-
-This repository holds the game to download and how to play it. It holds no source code.
+A 2D top-down multiplayer action-RPG developed in Java. Warriors and magicians fight with weapons and
+abilities across generated maps. Gain experience points, level up, learn powerful abilities, and trade equipment in shops. Five elements (Neutral, Earth, Fire, Ice, Wind - the orbs in the logo) run through the abilities and weapons: Earth beats Fire, Fire beats Ice, Ice beats Wind, and Wind beats Earth. Game modes include Deathmatch, Team Deathmatch, Domination, Monster Attack, and Capture the Flag. Join a game server or start your own server from the game.
 
 ## Play
 
@@ -13,13 +10,9 @@ This repository holds the game to download and how to play it. It holds no sourc
    from the [latest release](https://github.com/svalbrecht/saga-online-client/releases/latest).
 3. Double-click it, or run `java -jar saga-client.jar`.
 
-The game keeps itself up to date: each time it starts, it fetches a newer version from
-its root server if there is one and asks whether to use it. Tick "Don't ask again, always
-update" to be asked no more. To keep the version you have without being asked, put a file
-`saga-client.properties` beside the jar holding the line `noupdate=1` (from a terminal,
-`java -Dsaga.noupdate -jar saga-client.jar` does the same); it then joins only servers of
-that version. You need an account on that root server, and a network
-that reaches it and its game servers, as [docs/playing.md](docs/playing.md) explains.
+The game keeps itself up to date. Each time it starts, it fetches the latest version from
+the root server.
+
 
 | | |
 | --- | --- |
@@ -29,15 +22,17 @@ that reaches it and its game servers, as [docs/playing.md](docs/playing.md) expl
 
 ## Reporting problems
 
-Problems with the game, and suggestions, go in this repository's
-[Issues](https://github.com/svalbrecht/saga-online-client/issues). For a crash, a freeze or
-a game out of sync, also send a report from the game (Escape, then **Report a problem**):
-it carries the logs and a recording an issue cannot, as [docs/playing.md](docs/playing.md#reporting-a-problem)
-explains. Problems with the RL package go in [pysaga's Issues](https://github.com/ntu-agents/pysaga/issues).
+If you experience any problems while playing the game (such as a crash, game out of sync, something looking wrong), please send a report from the game: press ESC key, then click **Report a problem**. The report carries the game's logs and a recording of the round, as [docs/playing.md](docs/playing.md#reporting-a-problem) explains.
 
-## Train agents to play it
+Feel free to post suggestions or other issues in this repository's
+[Issues](https://github.com/svalbrecht/saga-online-client/issues).
 
-Saga Online is also a research environment for multi-agent reinforcement learning. The
-RL package, its tutorial and its reference are in
-[ntu-agents/pysaga](https://github.com/ntu-agents/pysaga). A replay of an
-evaluation plays in this game with its pictures and sounds: `java -jar saga-client.jar -replay saga_replay.json`.
+## Train agents to play the game
+
+Saga Online is also a research environment for [multi-agent reinforcement learning](https://en.wikipedia.org/wiki/Multi-agent_reinforcement_learning) (MARL).
+The [pySaga](https://github.com/ntu-agents/pysaga) Python package lets you train policies for bots in Saga Online using MARL algorithms. To get started, see the [quickstart guide](https://github.com/ntu-agents/pysaga/blob/main/docs/rl-quickstart.md).
+
+If you would like to learn more about MARL, and AI research in general, check out these books:
+
+* [Multi-Agent Reinforcement Learning: Foundations and Modern Approaches](https://www.marl-book.com/) (MIT Press, free download)
+* [Becoming an AI Researcher: Practical Advice for Graduate Students](https://phd-in-ai.com/) (Cambridge University Press)

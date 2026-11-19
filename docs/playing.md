@@ -6,7 +6,6 @@ The game talks to two kinds of server, which may run on different machines:
 
 - **The root server** holds the accounts and logs you in, lists the game servers,
   offers the newest version of the game, and keeps the problem reports players send.
-  Your copy of the game names one root server.
 - **A game server** runs rounds, each with a map, a mode and the players in it. Any number of
   game servers register with a root server, on its machine or on others, and you can
   start your own from the game (**Create server** in the server list).
@@ -17,20 +16,16 @@ The game talks to two kinds of server, which may run on different machines:
   installers ("Temurin 21"). If your computer has an older Java, the game says which it
   found and which it needs.
 - **The game:** `saga-client.jar` from the [latest release](https://github.com/svalbrecht/saga-online-client/releases/latest).
-  It is the whole game. Started, it unpacks its data into
+  It unpacks its data into
   `~/.saga-online` in your home folder (`%USERPROFILE%\.saga-online` on Windows), and
   each time it starts it fetches a newer version from the root server if there is one.
-- **An account** on the root server, from whoever runs it.
+- **An account** on the root server.
 - **A network that reaches the root server and the game servers.**
 
 ## Starting
 
 Double-click `saga-client.jar`, or run `java -jar saga-client.jar`. Log in, pick a
 game server from the list and press Join.
-
-The button under *Save login data* chooses the game's language. The game keeps your choice
-for its next start. On Linux, Chinese, Japanese and Thai need a font that has their characters,
-such as `fonts-noto-cjk` and `fonts-thai-tlwg`.
 
 <p>
 <a href="images/login.png"><img src="images/login.png" width="400" alt="The login" title="The login"></a>
@@ -45,26 +40,56 @@ then press **Join** to enter the round.
 <a href="images/round.png"><img src="images/round.png" width="400" alt="A round, with your abilities along the top, your figures at the top right, the windows' icons down the right" title="A round, with your abilities along the top, your figures at the top right, the windows' icons down the right"></a>
 </p>
 
-Keys and windows are explained in the game. Every window's title bar has an **i** that
-shows what the window does and how to use it.
+**Keys:** In a round, walk with the **WASD** keys, select abilities with the **1-9** keys and mouse scroll, and use a selected ability with the **E** key. Press **C** to see your current player stats, and press **F** to see the abilities you can learn. Chat with **G** (global chat - everyone in round) or with **T** (team chat - only team members). **Cmd+=** and **Cmd+-** (**Ctrl** on Windows and Linux) make the game window larger and smaller on every screen, **Cmd+0** returns it to normal size, and **F12** switches to full screen in a round. **Escape** opens a menu on every screen, to report a problem, configure keys, log out or quit. Press **K** to see all keys.
 
-In a round, **-** and **=** make the game's window smaller and larger; the game keeps the size for your next
-round. **F12** shows the round on the whole screen, and back. The key window (**K**)
-changes any key, to a single key or to a combination such as Cmd+Up or Shift+1.
+**Power and Focus:** A character's two stats. Power makes weapon strikes stronger, and Focus
+makes abilities stronger. Deeper abilities need a minimum of both before they can be learned.
+You raise them with the skill points you get as you level up, in the stats window (**C**).
+
+Every window's title bar has an ![i](images/info-icon.png) (on left end) that shows what the window does and how to use it.
+
 
 <p>
 <a href="images/window-map.png"><img src="images/window-map.png" alt="The map window, with the i at the left of its title bar" title="The map window, with the i at the left of its title bar"></a>
 <a href="images/window-map-info.png"><img src="images/window-map-info.png" alt="What the map window's i shows" title="What the map window's i shows"></a>
 </p>
 
-## Playing against a trained bot
+## Game modes
 
-In a lobby, **Add bot** adds a bot of yours to the round, a character played by a trained
-policy (a `.policy` file; see [the RL tutorial](https://github.com/ntu-agents/pysaga/blob/main/docs/rl-quickstart.md) to train one). The
-game lists the policy files in `~/.saga-online/policies` with what each plays; one that
-cannot play on this server is greyed, with the reason. In a round with teams, you choose
-the bot's team. The bot plays under your account, named after you with `#1`, `#2` and so
-on, and leaves when your game ends. On a server that lets in no bots, Add bot is greyed.
+Every round runs until its time is up, unless its mode ends it sooner, and then its mode
+names the winner. A server's admin may also set a score limit, which ends a round as soon
+as a side reaches it. When the round ends, a window shows who won, the round's best
+players and your own figures.
+
+A character that dies comes back 6 seconds later at its spawn point, with full health.
+You choose where you come back by clicking a spawn point on the lobby's map, or in a
+round on the map window (**M**). In every mode, a kill scores the
+level of the character killed, so a kill of a level 4 player scores 4.
+
+| Mode | How it is played | Who wins |
+| --- | --- | --- |
+| **Deathmatch** | Every player plays for themselves. | The player with the most score. When scores are equal, the player with more kills wins, and then the one with fewer deaths. |
+| **Team Deathmatch** | The players play in teams, 2 to 4 of them. | The team whose players together have the most score, with the same tie-breaks as in Deathmatch. |
+| **Domination** | Teams fight for the map's capture points. A team takes a point when one of its players stands on it for 5 seconds while no player of another team is there. If two teams stand on a point, it does not change hands. Every point a team holds earns it one point a second. Capture points are shown only in this mode. | The team with the most points. |
+| **Capture the Flag** | Each team's flag stands at its base. A player takes another team's flag by walking into it, and scores a capture by carrying it to their own base while their own flag is there. A player who dies, leaves or changes team drops the flag where they stand. A player of the flag's team returns it home by walking into it, and a dropped flag that nobody touches goes home after 15 seconds. | The team with the most captures when the time is up. |
+| **Monster Attack** | Every player is on one team, against monsters that come out of the map's monster homes. Each monster hunts a player, preferring players that fewer monsters are hunting, and monsters come faster as the round goes on. Some are Mega Monsters, which are larger, more powerful, and give more experience points. Each monster killed scores a point for the team. | The team, if it survives until the time is up. It loses as soon as its deaths reach **Deaths per player** times the number of players, and the round then ends at once. |
+
+## Adding bots
+
+In a lobby, **Add bot** adds a bot of yours to the server. You choose the bot, its type and
+look, and (where the bot allows) its team, its spawn point and whether it joins and leaves
+the round with you or stays without you.
+
+The game comes with built-in bots. The **Guard bot**, for example, stays near you and fights
+the enemies that come near you. The window says what each bot does. You can also add trained
+policies (`.policy` files; see [the RL tutorial](https://github.com/ntu-agents/pysaga/blob/main/docs/rl-quickstart.md)
+to train one). The game lists the policy files in `~/.saga-online/policies` with what each
+plays; one that cannot play on this server is greyed, with the reason.
+
+A bot plays under your account, named after you with `#1`, `#2` and so on, and leaves when
+your game ends. Remove one earlier with the red cross after its name in the lobby's player
+list. In a Deathmatch, you and your bots never hurt each other. On a server that lets in no
+bots, Add bot is greyed.
 
 ## Starting your own game server
 
@@ -75,50 +100,50 @@ their server list and join it as they would any other.
 
 <p>
 <a href="images/create-server.png"><img src="images/create-server.png" width="400" alt="Create server, with the server's settings on the left and the map on the right" title="Create server, with the server's settings on the left and the map on the right"></a>
-<a href="images/create-describe.png"><img src="images/create-describe.png" width="400" alt="A map described in words, while a language model writes it (Generate reads Stop)" title="A map described in words, while a language model writes it (Generate reads Stop)"></a>
 </p>
 
-**The server** (left):
+**Server** (left):
 
 - **Server name**: how it appears in the server list.
-- **Mode**: Deathmatch (everyone for themselves), Team Deathmatch, Domination
-  (teams take and hold capture points), or Monster Attack (every player on one team,
-  against monsters that come out of the map's monster homes and hunt the players).
-  **Number of teams** applies to Team Deathmatch and Domination.
-- **Round time**, **Players** (the most at once, up to 16), and **Score limit**: the
-  points a team needs to win a Domination round, or the monsters it must kill in
-  Monster Attack.
-- **Spawn every**, **Monsters at once** and **Mega chance** (Monster Attack only): how
-  often a monster spawns, how many may be up at once, and how many of them are Mega
-  Monsters -- twice the size, three times the health, twice the strength, four times
-  the reward. The map needs monster homes, which you choose under **Monsters**.
+- **Mode**: one of the [game modes](#game-modes). **Number of teams** applies to Team
+  Deathmatch, Domination and Capture the Flag.
+- **Round time** and **Players**, the most players at once (up to 16).
+- **Deaths per player**, **Spawn every**, **Monsters at once** and **Mega chance**: the
+  settings of Monster Attack. Monster Attack also needs a map with monster homes, which you
+  choose under **Monsters**.
 - **Password**: if set, players need it to join the game server.
 
-**The map** (right). The game makes a new map from your choices.
+**Map** (right). The game makes a new map from your choices.
 
-- **Kind**: Village, Forest, Fields, Lakes, Arena or Lava.
-- **Size**, **Density** (how many trees, houses and other obstacles) and **Symmetry**:
-  a symmetric map gives every team the same ground. With no symmetry, one side may have
+- **Kind**: the kind of landscape, such as a village, a forest or a lava world.
+- **Size**, **Density** (how many trees, houses and other obstacles) and **Symmetry**.
+  A symmetric map gives every team the same ground. With no symmetry, one side may have
   an advantage.
 - **Monsters**: how many monster homes the map has; every one is filled in the round.
 - **Seed**: the same choices and seed always make the same map; **New** samples a new seed and regenerates the map from this seed.
 - **Map name**, and **Load map** / **Save map** to use another map or keep this one.
-  **Load map** lists every map you can host, each with its picture, size, teams, modes
-  and monster homes, the maps that come with the game first and then your own. A map that
-  comes with the game is played as it is. **From a file...** takes a map
-  from anywhere.
+  **Load map** lists every map you can host, your own and those that come with the game,
+  with what each one offers. A map that comes with the game is played as it is.
+  **From a file...** takes a map from anywhere.
   Save a map you want to keep with **Save map**. Your maps are kept in
-  `~/.saga-online/player/maps`, one `.json` file each. A generated map is not kept on its
-  own; its server has it while it runs.
+  `~/.saga-online/player/maps`, one `.json` file each. A generated map is not saved unless you save it; its server keeps it only while the server runs.
 
 The picture under the choices shows the map as it will be played.
 
 **Describe a map** in words instead, and press **Generate**. A language model writes
 the map, and the game checks it can be played before showing it. The first time, the
 game asks for the model's provider and your API key, and keeps them on your computer
-only. Generating takes a minute or more; **Stop** cancels it.
+only; **LLM** beside Generate changes them later. Generating takes a minute or more;
+**Stop** cancels it.
 
-Press **Create** when you are happy with both. The game server runs as long as your
+**Record play data**, beside Create server, makes the server record its rounds for research.
+Every player's moves and choices may be published, under a pseudonym and without chat, as
+a dataset for training game-playing agents. Such a server is marked with a disk icon
+in the server list, and every player, you included, is asked to agree before joining
+it. The game remembers your choice for the next server you create. [Recorded play
+data](recording.md) says what is recorded, why, where it is kept and whom to ask.
+
+Press **Create server** when you are happy with both. The game server runs as long as your
 game does, and stops when you quit. Its log is in `~/.saga-online/logs/`, named
 `server-<port>.log`.
 
@@ -171,12 +196,23 @@ nc -vz -w 3 <game address> <file port>
   game server is not. It is down, or its ports are filtered. Tell whoever runs the game
   server.
 
+## When the game stutters
+
+Every player's game steps the round in lockstep. It waits for the other players' moves
+for the next tick before it steps it, and a move has one tick (50 ms) to arrive. On a
+slow link -- a VPN, or a Wi-Fi loaded by a video meeting on the same computer -- moves
+arrive late and the game waits several times a minute, which feels like stutter. To give the moves more time, put a file `saga-client.properties` beside the jar holding the
+line `inputdelay=2`, or `inputdelay=3` on a bad link. From a terminal,
+`java -Dsaga.inputdelay=2 -jar saga-client.jar` does the same. The cost is that your own keys
+take effect that many ticks later, 100 ms later at a delay of 2. The game notes in its log when the link is too slow for the setting,
+which a problem report carries to the developers.
+
 ## Reporting a problem
 
 If something goes wrong (a crash, a freeze, the game out of sync with other players,
 something that looks wrong), report it from the game, straight after it happens:
 
-- **In a round:** press Escape and choose **Report a problem**. Say what happened and
+- **On any screen:** press Escape and choose **Report a problem**. Say what happened and
   what you were doing.
 
   <a href="images/escape-menu.png"><img src="images/escape-menu.png" alt="The Escape menu, Report a problem at the top" title="The Escape menu, Report a problem at the top"></a>
