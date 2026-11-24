@@ -2,8 +2,6 @@
 
 What changed in each version of Saga Online, newest first.
 
-## Unreleased
-
 ## 0.2.1133 (2026-11-24)
 
 ### Added
