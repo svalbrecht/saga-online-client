@@ -67,6 +67,7 @@ used by the test harness every day; the others were checked against the code onl
 | `/setlives` | 1 to 99 | Monster Attack: deaths a player before the team is overrun |
 | `/setbotkits` | `on` or `off` | Whether a bot may hold the abilities its policy was trained with |
 | `/setbots` | `on` or `off` | Whether bots may join at all |
+| `/setmaxlatency` | 10 to 2000 ms, or `off` | The round trip a player's connection may take (100 ms by default) |
 | `/setroundtime` | minutes, at least 5 | Length of the next round |
 | `/setplayercount` | number | Most players in the round (at most 16) |
 | `/autobalancing` | `on`, `off`, `setpause <s>`, `setpuffer <n>` | Automatic team balancing |
@@ -279,6 +280,29 @@ with `off` a bot's join is refused (*This server lets in no bots.*) and the lobb
 *Add bot* for a player who joins after the change -- a lobby already open keeps its button
 until it is shown again, and the bot it starts is then refused. The `-bots on|off`
 argument sets it when the server starts. A bot already playing stays until you kick it (`/kick Owner#N`). `/server status` shows `Bots: on`.
+
+### `/setmaxlatency <ms>|off` **(tested)**
+
+The round trip (there and back, in milliseconds) a player's connection to the server may
+take: 100 ms by default, from 10 to 2000, or `off` for no limit. In lockstep every player
+waits for the slowest, so one slow connection stalls the whole round. The server pings
+every player: every second or so for its first five pings, then every 5 seconds in the
+lobby and every 2 seconds in the round, and judges each player by the pings of the last
+30 seconds:
+
+- a player whose connection is slower than the limit for most of those pings cannot
+  enter the round: *Join* is refused with a message, and the player stays in the lobby;
+- a player in the round whose connection has been slower than the limit for most of the
+  last 30 seconds is moved back to the lobby with a message, and the bots that joined with
+  them leave too.
+
+A player moved out is refused for the next 30 seconds whatever the pings say; a player
+turned away at *Join* may try again as soon as the connection is faster. Setting the limit
+clears that. A short spike never counts. The setting applies at once: a lowered limit moves out
+everybody above it at their next ping. The `-maxlatency <ms>|off` argument sets it when
+the server starts, and the Create screen's *Allowed latency* sets it for a server a player
+starts. `/server status` shows `Allowed latency: 100 ms round trip`, and the R window shows
+each player's round trip as the server judges it, red above the limit.
 
 ### `/setroundtime <minutes>`
 
