@@ -165,42 +165,37 @@ game does, and stops when you quit. Its log is in `~/.saga-online/logs/`, named
 ## When the game cannot reach a server
 
 If the game says *Could not connect to the server*, check that your computer reaches the
-servers' machines at all, and send the output to whoever runs them. The commands below
-need three things, put in place of the words in angle brackets.
+servers' machines at all, and send the output to whoever runs them. Put the root
+server's address in place of `<root address>` below; whoever runs the servers can tell
+you it.
 
-- **`<root address>`** is the root server's address.
-- **`<game address>`** is the game server's address, often the same machine.
-- **`<file port>`** is the game server's port plus one, 40001 for a game server on
-  port 40000. The game fetches the round's map over it.
-
-The game's log in `~/.saga-online/logs/` names every server it tried, with its address
-and port, for example *Game server at 192.168.0.6:40000 did not answer*. Whoever runs
-the servers can tell you the addresses too.
+A game server uses one UDP port, for the game and the round's map alike, which these
+commands cannot test. The game's log in `~/.saga-online/logs/` names every server it
+tried, with its address and port, for example *Game server at 192.168.0.6:30100 did not
+answer*.
 
 On Windows, in PowerShell:
 
 ```powershell
 ipconfig | findstr IPv4
 ping -n 3 <root address>
-Test-NetConnection <root address> -Port 50001
-Test-NetConnection <game address> -Port <file port>
+Test-NetConnection <root address> -Port 30001
 ```
 
 On macOS or Linux, in a terminal:
 
 ```
 ping -c 3 <root address>
-nc -vz -w 3 <root address> 50001
-nc -vz -w 3 <game address> <file port>
+nc -vz -w 3 <root address> 30001
 ```
 
-- **Port 50001 does not answer:** your network does not reach the root server's machine,
+- **Port 30001 does not answer:** your network does not reach the root server's machine,
   or a firewall filters the port. An address starting with 10., 172.16 to 172.31 or
   192.168. belongs to a private network, which you reach only from inside it or over its
   VPN. A machine may ignore the ping and still serve the game, so go by the port.
-- **50001 answers, but the file port does not:** the root server is reachable and the
-  game server is not. It is down, or its ports are filtered. Tell whoever runs the game
-  server.
+- **30001 answers, but a game server does not:** the root server is reachable and the
+  game server is not. It is down, or its port is filtered. Send the log's line to whoever
+  runs the game server.
 
 ## When the game stutters
 
@@ -212,6 +207,27 @@ line `inputdelay=2`, or `inputdelay=3` on a bad link. From a terminal,
 `java -Dsaga.inputdelay=2 -jar saga-client.jar` does the same. The cost is that your own keys
 take effect that many ticks later, 100 ms later at a delay of 2. The game notes in its log when the link is too slow for the setting,
 which a problem report carries to the developers.
+
+### On a Mac on Wi-Fi
+
+AirDrop, AirPlay and Handoff share the Mac's Wi-Fi radio. While they are on, the radio
+leaves its channel for a moment several times a second, and about one packet in ten is
+delayed by 50 to 90 ms, on any network and to any server. In the game that shows as short
+stutters. To see whether your Mac does it, ping your router from Terminal (its address is
+under System Settings, Wi-Fi, Details, as "Router"):
+
+    ping -c 100 -i 0.2 192.168.1.1
+
+If most answers take a few milliseconds and some take 40 to 100, this is the cause. To
+turn the sharing off while you play:
+
+    sudo ifconfig awdl0 down
+
+It asks for your Mac's password. AirDrop, AirPlay and Handoff do not work until you turn
+it on again with `sudo ifconfig awdl0 up` or restart the Mac, and macOS may turn it on
+again by itself. A network cable to the router avoids it altogether. Measured on one Mac:
+the ping to the router went from one answer in ten above 46 ms, 96 ms at worst, to 7 ms at
+worst.
 
 ## Reporting a problem
 

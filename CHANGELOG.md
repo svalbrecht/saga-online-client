@@ -2,6 +2,42 @@
 
 What changed in each version of Saga Online, newest first.
 
+## 0.2.1182 (2026-11-26)
+
+### Added
+
+- Players at home can join a server another player hosts at home, with no port opened on
+  the router. Players on networks such as a university's still need the host's port opened.
+- A star before the name of the player who created a server, in the lobby's player list and
+  the player statistics (R). The game information (L) names that player as the host.
+
+### Changed
+
+- Each server is reached through one network port, and a connection is made with one
+  network round trip less.
+- A server on another network of the same campus or company is reached at its inside address.
+- A server's map comes over the server's own port.
+- After five wrong passwords for an account, each further login attempt waits a while, from
+  2 seconds up to 5 minutes. A saved login always gets through.
+- The creator of a server made with Create is told in the lobby whether players elsewhere
+  can reach it.
+- The root server moved to a new address, 80.69.33.167. The game moves to it by itself at
+  its next update, and a saved login is kept.
+- The NTU servers are reached from NTU's network or over its VPN.
+- Leaving a round goes straight back to the server's lobby, without the server list in between.
+  The end menu's button reads Return to lobby.
+- A lost network packet delays a join, a return to the lobby or any other request to a server
+  by about half a second, where it cost up to 10 seconds.
+- The cast key (E) and opening a shop end a walk or an attack started with a click.
+- Playing guide: on a Mac on Wi-Fi, AirDrop, AirPlay and Handoff delay packets; how to turn
+  them off while playing.
+
+### Fixed
+
+- The saved login was lost when one computer played on two servers, or when a login's
+  answer was lost on the network.
+- Joining a server could wait 5 seconds when the lobby's player list was lost on the network.
+
 ## 0.2.1133 (2026-11-24)
 
 ### Added
