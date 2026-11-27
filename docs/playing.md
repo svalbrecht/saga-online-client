@@ -46,7 +46,7 @@ then press **Join** to enter the round.
 <a href="images/round.png"><img src="images/round.png" width="400" alt="A round, with your abilities along the top, your figures at the top right, the windows' icons down the right" title="A round, with your abilities along the top, your figures at the top right, the windows' icons down the right"></a>
 </p>
 
-**Keys:** In a round, walk with the **WASD** keys, select abilities with the **1-9** keys and mouse scroll, and use a selected ability with the **E** key. With the mouse, click the ground to walk there, or click an enemy to attack it with the selected ability until it is gone; hold the button down to steer the walk, and a movement key cancels the click. Press **C** to see your current player stats, and press **F** to see the abilities you can learn. Chat with **G** (global chat - everyone in round) or with **T** (team chat - only team members). **Cmd+=** and **Cmd+-** (**Ctrl** on Windows and Linux) make the game window larger and smaller on every screen, **Cmd+0** returns it to normal size, **Cmd+Shift+P** (**Ctrl+Shift+P**) saves a screenshot on your desktop, and **F12** switches to full screen in a round. **Escape** opens a menu on every screen, to report a problem, configure keys, log out or quit. Press **K** to see all keys.
+**Keys:** In a round, walk with the **WASD** keys, select abilities with the **1-9** keys and mouse scroll, and use a selected ability with the **E** key. With the mouse, click the ground to walk there, or click an enemy to attack it with the selected ability until it is gone; hold the button down to steer the walk. Press **C** to see your current player stats, and press **F** to see the abilities you can learn. Chat with **G** (global chat - everyone in round) or with **T** (team chat - only team members). **Cmd+=** and **Cmd+-** (**Ctrl** on Windows and Linux) make the game window larger and smaller on every screen, **Cmd+0** returns it to normal size, **Cmd+Shift+P** (**Ctrl+Shift+P**) saves a screenshot on your desktop, and **F12** switches to full screen in a round. **Escape** opens a menu on every screen, to report a problem, configure keys, log out or quit. Press **K** to see all keys.
 
 **Power and Focus:** A character's two stats. Power makes weapon strikes stronger, and Focus
 makes abilities stronger. Deeper abilities need a minimum of both before they can be learned.
@@ -153,9 +153,11 @@ Press **Create server** when you are happy with both. The game server runs as lo
 game does, and stops when you quit. Its log is in `~/.saga-online/logs/`, named
 `server-<port>.log`.
 
-- **Players on other computers** must reach yours, on the same network or connected
-  over the same VPN. If they cannot join, your computer's firewall may be blocking
-  Java; allow it when asked.
+- **Players at home** join your server through the game, with no port opened on your
+  router. Players on networks such as a university's need your server's port (UDP 31100
+  for the first server you create) opened on your router. The lobby tells you whether
+  players elsewhere can reach your server. If nobody can join, your computer's firewall
+  may be blocking Java; allow it when asked.
 - **You are an admin** of the server you create. Kick a player with the red cross after
   their name in the lobby's player list, or kick or ban one from the menu a right click on
   them opens in a round. Other commands go in the chat, to change the map or restart the

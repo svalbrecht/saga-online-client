@@ -2,6 +2,18 @@
 
 What changed in each version of Saga Online, newest first.
 
+## 0.3.1194 (2026-11-27)
+
+### Added
+
+- A tooltip on the server owner's name in the lobby, and a line on the star in the player
+  statistics' (R) help.
+
+### Changed
+
+- An update replaces the game file that was opened. A file of version 0.3.1190 or before is
+  replaced only by downloading it again.
+
 ## 0.2.1182 (2026-11-26)
 
 ### Added
